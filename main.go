@@ -10,6 +10,8 @@ func main() {
 	const ticketsAvailable = 50
 	remainingTickets := 50
 
+	greetUsers()
+
 	fmt.Printf("Welcome to %v booking application\n", conferenceName)
 	fmt.Printf("We have total of %v of which %v are remianing\n", ticketsAvailable, remainingTickets)
 	fmt.Println("Click here to book the tickets")
@@ -77,4 +79,8 @@ func main() {
 		}
 	}
 
+}
+
+func greetUsers() {
+	fmt.Println("Welcome to our Conference!")
 }
