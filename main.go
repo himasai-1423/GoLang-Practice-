@@ -1,15 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-)
+import "fmt"
 
 const ticketsAvailable int = 50
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-var bookings = make([]map[string]string, 0)
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 
@@ -59,7 +63,7 @@ func greetUsers() {
 func getFirstNames() []string {
 	fNames := []string{}
 	for _, booking := range bookings {
-		fNames = append(fNames, booking["firstName"])
+		fNames = append(fNames, booking.firstName)
 	}
 	return fNames
 }
@@ -89,15 +93,15 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	remainingTickets = remainingTickets - userTickets
 
 	//creating a map
-	var userData = make(map[string]string)
-
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
 
 	bookings = append(bookings, userData)
-	fmt.Printf("List of Bookings is %v", bookings)
+	fmt.Printf("List of Bookings is %v\n", bookings)
 	fmt.Printf("Thank you %v %v, for buying %v tickets.\nYou will receive confirmation email on %v.\n",
 		firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
